@@ -33,6 +33,18 @@ dependencies:
   # (and their variants) from fonts.google.com in your Flutter app.
   google_fonts: ^1.1.1
 
+  # from https://pub.dev/packages/mvc_pattern
+  # To develop apps using a framework following the MVC design pattern separating
+  # the app's 'interface' from its 'business logic' and from its 'data source' if any.
+  mvc_pattern: ^6.5.0
+
+  adaptive_breakpoints: ^0.0.2
+
+  shrine_images: ^1.1.2
+
+  # contains a few thousand of the most-used English words, plus some utility functions.
+  english_words: ^3.1.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
