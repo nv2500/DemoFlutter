@@ -23,6 +23,7 @@ class Product {
     @required this.isFeatured,
     @required this.name,
     @required this.price,
+    // this.isSaved = false,
   })  : assert(category != null),
         assert(id != null),
         assert(isFeatured != null),
@@ -37,6 +38,8 @@ class Product {
 
   String get assetName => '$id-0.jpg';
   String get assetPackage => 'shrine_images';
+
+  String get nameTesting => '$id - $name';
 
   @override
   String toString() => "$name (id=$id)";

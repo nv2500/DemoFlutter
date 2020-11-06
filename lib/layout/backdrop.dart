@@ -14,7 +14,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/model/product.dart';
-import 'package:flutter_app/page/splash.dart';
+import 'package:flutter_app/page/login.dart';
 import 'package:meta/meta.dart';
 
 const double _kFlingVelocity = 2.0;

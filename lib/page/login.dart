@@ -1,97 +1,220 @@
+// Copyright 2019 The Flutter team. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_app/data/colors.dart';
 
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "DEMO 123",
-        home: MyHomePage(
-          title: "hello",
-        ));
-  }
-}
+import '../main.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class LoginPage extends StatefulWidget {
+  const LoginPage();
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        appBar: AppBar(automaticallyImplyLeading: false),
+        body: SafeArea(
+          child: _MainView(
+            usernameController: _usernameController,
+            passwordController: _passwordController,
+          ),
+        ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+}
+
+class _MainView extends StatelessWidget {
+  const _MainView({
+    Key key,
+    this.usernameController,
+    this.passwordController,
+  }) : super(key: key);
+
+  final TextEditingController usernameController;
+  final TextEditingController passwordController;
+
+  void _doLogin(BuildContext context) {
+    // Navigator.of(context).pop();// <= TODO we no longer need login screen when moving to main screen
+    // Navigator.of(context).pushReplacementNamed(MyApp.homeRoute);
+    // pushNamedAndRemoveUntil <= perfect for payment flow!
+    Navigator.of(context).pushNamed(MyDemoApp.homeRoute);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> listViewChildren;
+
+      listViewChildren = [
+        const SizedBox(height: 180),
+        _UsernameInput(
+          usernameController: usernameController,
+        ),
+        const SizedBox(height: 12),
+        _PasswordInput(
+          passwordController: passwordController,
+        ),
+        _LoginButton(
+          onTap: () {
+            _doLogin(context);
+          },
+        ),
+      ];
+
+    return Column(
+      children: [
+        // if (isDesktop) const _TopBar(),
+        Expanded(
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: ListView(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              children: listViewChildren,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _UsernameInput extends StatelessWidget {
+  const _UsernameInput({
+    Key key,
+    this.maxWidth,
+    this.usernameController,
+  }) : super(key: key);
+
+  final double maxWidth;
+  final TextEditingController usernameController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        constraints: BoxConstraints(maxWidth: maxWidth ?? double.infinity),
+        child: TextField(
+          controller: usernameController,
+          decoration: InputDecoration(
+            labelText: 'Username',
+          ),
+        ),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+    );
+  }
+}
+
+class _PasswordInput extends StatelessWidget {
+  const _PasswordInput({
+    Key key,
+    this.maxWidth,
+    this.passwordController,
+  }) : super(key: key);
+
+  final double maxWidth;
+  final TextEditingController passwordController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        constraints: BoxConstraints(maxWidth: maxWidth ?? double.infinity),
+        child: TextField(
+          controller: passwordController,
+          decoration: InputDecoration(
+            labelText: 'Password',
+          ),
+          obscureText: true,
+        ),
+      ),
+    );
+  }
+}
+
+class _LoginButton extends StatelessWidget {
+  const _LoginButton({
+    Key key,
+    @required this.onTap,
+    this.maxWidth,
+  }) : super(key: key);
+
+  final double maxWidth;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        constraints: BoxConstraints(maxWidth: maxWidth ?? double.infinity),
+        padding: const EdgeInsets.symmetric(vertical: 30),
+        child: Row(
+
+          children: [
+            const Icon(Icons.check_circle_outline,
+                color: DemoColors.buttonColor),
+            const SizedBox(width: 12),
+            Text('Remember Me', style: TextStyle(color: Colors.white)),
+            const Expanded(child: SizedBox.shrink()),
+            _FilledButton(
+              text: 'Login',
+              onTap: onTap,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            // const Expanded(child: SizedBox.shrink()),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class _FilledButton extends StatelessWidget {
+  const _FilledButton({Key key, @required this.text, @required this.onTap})
+      : super(key: key);
+
+  final String text;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: TextButton.styleFrom(
+        backgroundColor: DemoColors.buttonColor,
+        // backgroundColor: DemoColors.billColor(3),
+        primary: Colors.black,
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+      ),
+      onPressed: onTap,
+      child: Row(
+        children: [
+          const Icon(Icons.lock_outline),
+          const SizedBox(width: 6),
+          Text(text),
+        ],
+      ),
     );
   }
 }
