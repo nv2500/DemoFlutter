@@ -36,7 +36,7 @@ class MyDemoApp extends StatelessWidget {
           homeRoute: (BuildContext context) => const HomeAppBoard(),
           loginRoute: (BuildContext context) => const LoginPage(),
         },
-        initialRoute: loginRoute,
+        // initialRoute: loginRoute,
       );
   }
 
@@ -46,7 +46,7 @@ class MyDemoApp extends StatelessWidget {
       appBarTheme: const AppBarTheme(
           color: DemoColors.primaryBackground,
           brightness: Brightness.dark,
-          elevation: 0,
+          elevation: 1,
       ),
       scaffoldBackgroundColor: DemoColors.primaryBackground,
       primaryColor: DemoColors.primaryBackground,

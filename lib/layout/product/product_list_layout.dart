@@ -1,14 +1,12 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/layout/product/product_row_select_fav_widget.dart';
 import 'package:flutter_app/model/product.dart';
 
-class ProductListSelectFavLayout extends StatefulWidget {
-  const ProductListSelectFavLayout({
+class ProductListLayout extends StatefulWidget {
+  const ProductListLayout({
     @required this.productList,
-    // this.listRowWidget,
-    // @required this.listRowWidget,
   }) :  assert(productList != null);
-  // assert (listRowWidget != null);
 
   final List<Product> productList;
 
@@ -17,36 +15,24 @@ class ProductListSelectFavLayout extends StatefulWidget {
 
 }
 
-class _ProductListSelectFavLayout extends State<ProductListSelectFavLayout> {
+class _ProductListSelectFavLayout extends State<ProductListLayout> {
   final List<Product> productList;
 
   _ProductListSelectFavLayout(this.productList) : assert(productList != null);
 
   Widget buildRow(Product product, int index) {
-    // final alreadySaved = _productListSaved.contains(product);  // NEW
-    return Card(
-        child: ListTile(
-          title: Text(
-            product.nameTesting,
-            // style: biggerFont,
-          ),
-          trailing: Icon(
-            // alreadySaved ? Icons.favorite : Icons.favorite_border,
-            // color: alreadySaved ? Colors.red : null,
-              Icons.favorite_border,
-          ),
-          onTap: () {
-            print('row $index tapped');
-            setState(() {
-            //   if (alreadySaved) {
-            //     _productListSaved.remove(product);
-            //   } else {
-            //     _productListSaved.add(product);
-            //   }
-            });
-          },
-          // onTap: tapCallback.onTap,
-        ));
+    Widget row = ProductRowSelectFavWidget(
+      selectedProduct: product,
+      index: index,
+      tapCallback: () {
+        print('>>> tap at row $index ');
+        setState(() {
+          // TODO leave this empty call to force invalidate UI
+        });
+      },
+    );
+
+    return row;
   }
 
   @override

@@ -2,8 +2,9 @@ import 'dart:developer' as devlog;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/main.dart';
 
-import 'layout/product/product_list_select_fav_layout.dart';
+import 'layout/product/product_list_layout.dart';
 import 'model/product.dart';
 import 'model/products_repository.dart';
 
@@ -46,32 +47,17 @@ class _HomeAppBoardState extends State<HomeAppBoard> {
   void _pushSaved() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        // NEW lines from here...
         builder: (BuildContext context) {
-          final tiles = _productListSaved.map(
-                (Product product) {
-              return ListTile(
-                  title: Card(child: Text(
-                    product.name,
-                    style: _biggerFont,
-                  ),
-                  ));
-            },
-          );
-          final divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-            color: Colors.white,
-          ).toList();
-
           return Scaffold(
             // backgroundColor: Colors.lightBlue[900],
             appBar: AppBar(
               title: Text('Saved Suggestions'),
             ),
-            body: ListView(children: divided),
+            body: ProductListLayout (
+              productList: MyDemoApp.sSavedProductList,
+            ),
           );
-        }, // ...to here.
+        },
       ),
     );
   }
@@ -87,7 +73,7 @@ class _HomeAppBoardState extends State<HomeAppBoard> {
         // backgroundColor: Colors.lightBlue[900],
       ),
       //body: _buildListViewWidget(),
-      body: ProductListSelectFavLayout (
+      body: ProductListLayout (
         productList: _productListSuggestions,
       ),
     );

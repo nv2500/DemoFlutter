@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_app/data/colors.dart';
 
 import '../main.dart';
@@ -23,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(automaticallyImplyLeading: false),
+        //appBar: AppBar(automaticallyImplyLeading: true),
         body: SafeArea(
           child: _MainView(
             usernameController: _usernameController,
@@ -53,9 +52,9 @@ class _MainView extends StatelessWidget {
 
   void _doLogin(BuildContext context) {
     // Navigator.of(context).pop();// <= TODO we no longer need login screen when moving to main screen
-    // Navigator.of(context).pushReplacementNamed(MyApp.homeRoute);
+    Navigator.of(context).pushReplacementNamed(MyDemoApp.homeRoute);
     // pushNamedAndRemoveUntil <= perfect for payment flow!
-    Navigator.of(context).pushNamed(MyDemoApp.homeRoute);
+    // Navigator.of(context).pushNamed(MyDemoApp.homeRoute);
   }
 
   @override
@@ -113,9 +112,12 @@ class _UsernameInput extends StatelessWidget {
       child: Container(
         constraints: BoxConstraints(maxWidth: maxWidth ?? double.infinity),
         child: TextField(
+          style: TextStyle(color: Colors.white, decorationColor: Colors.white),
           controller: usernameController,
           decoration: InputDecoration(
             labelText: 'Username',
+            labelStyle: TextStyle(color: Colors.white),
+            hintStyle: TextStyle(color: Colors.white),
           ),
         ),
       ),
@@ -140,6 +142,7 @@ class _PasswordInput extends StatelessWidget {
       child: Container(
         constraints: BoxConstraints(maxWidth: maxWidth ?? double.infinity),
         child: TextField(
+          style: TextStyle(color: Colors.white, decorationColor: Colors.white),
           controller: passwordController,
           decoration: InputDecoration(
             labelText: 'Password',
