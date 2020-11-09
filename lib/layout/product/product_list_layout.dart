@@ -74,7 +74,9 @@ class _ProductListLayoutState extends State<ProductListLayout> {
       return ListView.builder (
         // physics: NeverScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
-          padding: const EdgeInsets.all(4),
+          // TODO will fix bottom padding of ListView in case we don't have  
+          // floating button on screen
+          padding: const EdgeInsets.only(left: 4, top: 4, right: 4, bottom: 64),
           itemCount: widget.productList.length,
 
           itemBuilder: (BuildContext _context, int index) {

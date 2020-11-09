@@ -2,6 +2,7 @@ import 'dart:developer' as devlog;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/data/colors.dart';
 import 'package:flutter_app/main.dart';
 
 import 'layout/product/product_list_layout.dart';
@@ -30,6 +31,7 @@ class HomeAppBoard extends StatefulWidget {
 
     return _HomeAppBoardState();
   }
+
 }
 
 class _HomeAppBoardState extends State<HomeAppBoard> {
@@ -46,6 +48,13 @@ class _HomeAppBoardState extends State<HomeAppBoard> {
   //   super.initState();
   // }
 
+  @override
+  void dispose() {
+    super.dispose();
+
+    MyDemoApp.sSavedProductList.clear();
+  }
+
   void _pushSaved() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
@@ -53,7 +62,7 @@ class _HomeAppBoardState extends State<HomeAppBoard> {
           return Scaffold(
             // backgroundColor: Colors.lightBlue[900],
             appBar: AppBar(
-              title: Text('Saved Suggestions'),
+              title: Text('Saved Products'),
             ),
             body: ProductListLayout (
               productList: MyDemoApp.sSavedProductList,
@@ -70,15 +79,23 @@ class _HomeAppBoardState extends State<HomeAppBoard> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome to Flutter'),
-        actions: [
-          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
-        ],
+        // actions: [
+        //   IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
+        // ],
         // backgroundColor: Colors.lightBlue[900],
       ),
       //body: _buildListViewWidget(),
       body: ProductListLayout<ProductRowSelectFavWidget> (
         rowGenericType: ()=> new ProductRowSelectFavWidget(),
         productList: _productListSuggestions,
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () {
+          _pushSaved();
+        },
+        tooltip: 'Saved Products',
+        backgroundColor: DemoColors.buttonColor,
+        child: new Icon(Icons.shopping_cart_outlined,),
       ),
     );
 

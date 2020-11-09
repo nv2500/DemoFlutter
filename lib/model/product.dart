@@ -34,7 +34,7 @@ class Product {
   int id;
   bool isFeatured;
   String name;
-  int price;
+  double price;
 
   int quantity = 0;
 

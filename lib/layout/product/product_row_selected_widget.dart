@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/data/colors.dart';
 
 import '../../main.dart';
 import 'product_row_base_widget.dart';
@@ -23,13 +24,17 @@ class ProductRowSelectedWidget extends ProductRowBaseWidget {
       // elevation: 4.0,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
+        child: //Column(
+          //children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CircleAvatar(
-                  child: Text('NV'),
+                  backgroundColor: DemoColors.billColor(selectedProduct.id),
+                  child: Text(
+                    selectedProduct.name.characters.first,
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
                 Expanded(
                   child: Padding(
@@ -37,14 +42,17 @@ class ProductRowSelectedWidget extends ProductRowBaseWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(selectedProduct.name),
-                        Text(''+ selectedProduct.category.toString().split('.').last)
+                        //Text('Quantity: '+ selectedProduct.category.toString().split('.').last),
+                        Text('Quantity: ${selectedProduct.quantity}'),
+                        Text(
+                          selectedProduct.name,
+                          style: Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.black),
+                        ),
                       ],
                     ),
                   ),
                 ),
-                //selectedProduct.isFeatured ? Icon(Icons.star_border) : Container(),
-                Opacity(
+                /*Opacity(
                   opacity: selectedProduct.isFeatured ? 1.0 : 0.0,
                   child: Icon(Icons.star_border),
                 ),
@@ -53,20 +61,21 @@ class ProductRowSelectedWidget extends ProductRowBaseWidget {
                   child: Icon(Icons.star_border),
                 ),
                 if (selectedProduct.isFeatured) Icon(Icons.star_border),
-                if(selectedProduct.isFeatured) Text('Showing') else Text('Not showing')
+                if(selectedProduct.isFeatured) Text('Showing') else Text('Not showing')*/
+                Text('x \$${selectedProduct.price}')
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(
-                'This is an article, trying to explain custom callbacks inside custom widgets.'
-                    ' Let\'s just add some more text just to make it a bulky description.',
-                textAlign: TextAlign.justify,
-                style: Theme.of(context).textTheme.caption.copyWith(color: Colors.grey),
-              ),
-            ),
-          ],
-        ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 8.0),
+            //   child: Text(
+            //     'This is an article, trying to explain custom callbacks inside custom widgets.'
+            //         ' Let\'s just add some more text just to make it a bulky description.',
+            //     textAlign: TextAlign.justify,
+            //     style: Theme.of(context).textTheme.caption.copyWith(color: Colors.grey),
+            //   ),
+            // ),
+          // ],
+        // ),
       ),
     );
   }
