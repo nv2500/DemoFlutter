@@ -6,11 +6,11 @@ import 'package:flutter_app/model/product.dart';
 
 import 'product_row_selected_widget.dart';
 
-typedef S ItemCreator<S>();
+typedef S GenericTypeCreator<S>();
 
 class ProductListLayout<T> extends StatefulWidget {
 
-  final ItemCreator<T> rowGenericType;
+  final GenericTypeCreator<T> rowGenericType;
 
   const ProductListLayout({
     @required this.rowGenericType,
@@ -27,27 +27,31 @@ class ProductListLayout<T> extends StatefulWidget {
 class _ProductListLayoutState extends State<ProductListLayout> {
 
   Widget buildRow(Product product, int index) {
-    ProductRowBaseWidget row;
-    if ((widget.rowGenericType() as ProductRowBaseWidget) is ProductRowSelectFavWidget) {
+    final ProductRowBaseWidget genType = widget.rowGenericType() as ProductRowBaseWidget;
+    if (genType is ProductRowSelectFavWidget) {
       // cast back to original data type
       //print('>>> BINGO!!!!! ');
-      row = new ProductRowSelectFavWidget();
-    } else if ((widget.rowGenericType() as ProductRowBaseWidget) is ProductRowSelectedWidget) {
-      row = new ProductRowSelectedWidget();
+      return ProductRowSelectFavWidget(
+        selectedProduct: product,
+        rowIndex: index,
+        tapCallback: (int tappedIndex) {
+          // ?. equivalent with (myObject != null) ? myObject.someProperty : null
+          print('>>> tap at row $index + ??? tappedIndex=$tappedIndex');
+          setState(() {
+            // TODO leave this empty call to force invalidate UI for item changed purpose
+          });
+        },
+      );
+    } else if (genType is ProductRowSelectedWidget) {
+      return ProductRowSelectedWidget(
+        selectedProduct: product,
+        rowIndex: index,
+      );
     } else {
       print('>>> GOOD LUCK NEXT TIME!!!!! ');
+      // throw UnimplementedError();
+      throw StateError('Invalid generic type of ProductRowBaseWidget');
     }
-    // ProductRowBaseWidget row = new ProductRowSelectFavWidget();
-    row.selectedProduct = product;
-    row.rowIndex = index;
-    row.tapCallback = (int tappedIndex) {
-      print('>>> tap at row $index + ??? tappedIndex=$tappedIndex');
-      setState(() {
-        // TODO leave this empty call to force invalidate UI for item changed purpose
-      });
-    };
-
-    return row;
   }
 
   @override
@@ -70,7 +74,7 @@ class _ProductListLayoutState extends State<ProductListLayout> {
       return ListView.builder (
         // physics: NeverScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(4),
           itemCount: widget.productList.length,
 
           itemBuilder: (BuildContext _context, int index) {

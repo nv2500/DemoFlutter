@@ -17,7 +17,7 @@ import 'package:flutter/foundation.dart';
 enum Category { all, accessories, clothing, home, }
 
 class Product {
-  const Product({
+  Product({
     @required this.category,
     @required this.id,
     @required this.isFeatured,
@@ -30,11 +30,13 @@ class Product {
         assert(name != null),
         assert(price != null);
 
-  final Category category;
-  final int id;
-  final bool isFeatured;
-  final String name;
-  final int price;
+  Category category;
+  int id;
+  bool isFeatured;
+  String name;
+  int price;
+
+  int quantity = 0;
 
   String get assetName => '$id-0.jpg';
   String get assetPackage => 'shrine_images';

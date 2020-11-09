@@ -8,17 +8,17 @@ class ProductRowBaseWidget extends StatelessWidget {
 
   // non final or const constructor to keep everything simple due
   // we will use generic typedef for dynamic of ListView contents
-  Product selectedProduct;
-  int rowIndex;
+  final Product selectedProduct;
+  final int rowIndex;
 
-  TapCallback tapCallback;
+  final TapCallback tapCallback;
 
-  // const ProductRowBaseWidget({
-  //   this.selectedProduct,
-  //   this.index,
-  //   this.tapCallback,
-  // }) :  assert(selectedProduct != null),
-  //       assert(tapCallback != null);
+  const ProductRowBaseWidget({
+    this.selectedProduct,
+    this.rowIndex,
+    this.tapCallback,
+  });// :  assert(selectedProduct != null);
+        // assert(tapCallback != null);
 
   @override
   Widget build(BuildContext context) {

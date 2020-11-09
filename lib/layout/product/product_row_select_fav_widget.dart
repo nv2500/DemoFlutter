@@ -7,6 +7,16 @@ import 'product_row_base_widget.dart';
 // ignore: must_be_immutable
 class ProductRowSelectFavWidget extends ProductRowBaseWidget {
 
+  const ProductRowSelectFavWidget({
+    selectedProduct,
+    rowIndex,
+    tapCallback,
+  })  : super(
+          selectedProduct: selectedProduct,
+          rowIndex: rowIndex,
+          tapCallback: tapCallback,
+        );
+
   @override
   Widget build(BuildContext context) {
     final alreadySaved = MyDemoApp.sSavedProductList.contains(selectedProduct);  // NEW
