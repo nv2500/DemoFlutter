@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/main.dart';
 
 import 'layout/product/product_list_layout.dart';
+import 'layout/product/product_row_select_fav_widget.dart';
+import 'layout/product/product_row_selected_widget.dart';
 import 'model/product.dart';
 import 'model/products_repository.dart';
 
@@ -55,6 +57,7 @@ class _HomeAppBoardState extends State<HomeAppBoard> {
             ),
             body: ProductListLayout (
               productList: MyDemoApp.sSavedProductList,
+              rowGenericType: ()=> new ProductRowSelectedWidget(),
             ),
           );
         },
@@ -73,7 +76,8 @@ class _HomeAppBoardState extends State<HomeAppBoard> {
         // backgroundColor: Colors.lightBlue[900],
       ),
       //body: _buildListViewWidget(),
-      body: ProductListLayout (
+      body: ProductListLayout<ProductRowSelectFavWidget> (
+        rowGenericType: ()=> new ProductRowSelectFavWidget(),
         productList: _productListSuggestions,
       ),
     );

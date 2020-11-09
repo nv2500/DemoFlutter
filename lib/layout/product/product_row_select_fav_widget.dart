@@ -1,21 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/model/product.dart';
 
 import '../../main.dart';
+import 'product_row_base_widget.dart';
 
-class ProductRowSelectFavWidget extends StatelessWidget {
-
-  final Product selectedProduct;
-  final int index;
-  final VoidCallback tapCallback;
-
-  const ProductRowSelectFavWidget({
-    this.selectedProduct,
-    this.index,
-    this.tapCallback,
-  }) :  assert(selectedProduct != null),
-        assert(tapCallback != null);
+// ignore: must_be_immutable
+class ProductRowSelectFavWidget extends ProductRowBaseWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +29,7 @@ class ProductRowSelectFavWidget extends StatelessWidget {
               MyDemoApp.sSavedProductList.add(selectedProduct);
             }
             // TODO call this to force invalidate UI
-            tapCallback();
+            tapCallback(selectedProduct.id);
           },
         ));
     return row;

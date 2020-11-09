@@ -52,9 +52,9 @@ class _MainView extends StatelessWidget {
 
   void _doLogin(BuildContext context) {
     // Navigator.of(context).pop();// <= TODO we no longer need login screen when moving to main screen
-    Navigator.of(context).pushReplacementNamed(MyDemoApp.homeRoute);
+    // Navigator.of(context).pushReplacementNamed(MyDemoApp.homeRoute);
     // pushNamedAndRemoveUntil <= perfect for payment flow!
-    // Navigator.of(context).pushNamed(MyDemoApp.homeRoute);
+    Navigator.of(context).pushNamed(MyDemoApp.homeRoute);
   }
 
   @override
