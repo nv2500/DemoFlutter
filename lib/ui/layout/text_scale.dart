@@ -6,7 +6,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_app/data/app_options.dart';
+import 'package:flutter_app/ui/data/app_options.dart';
 
 double _textScaleFactor(BuildContext context) {
   return AppOptions.of(context).textScaleFactor(context);

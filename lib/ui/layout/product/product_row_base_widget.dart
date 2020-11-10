@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/model/product.dart';
+import 'package:flutter_app/ui/model/product.dart';
 
 typedef TapCallback = void Function(int);
 

@@ -2,14 +2,14 @@ import 'dart:developer' as devlog;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data/colors.dart';
 import 'package:flutter_app/main.dart';
+import 'package:flutter_app/ui/data/colors.dart';
+import 'package:flutter_app/ui/layout/product/product_list_layout.dart';
+import 'package:flutter_app/ui/layout/product/product_row_select_fav_widget.dart';
+import 'package:flutter_app/ui/layout/product/product_row_selected_widget.dart';
 
-import 'layout/product/product_list_layout.dart';
-import 'layout/product/product_row_select_fav_widget.dart';
-import 'layout/product/product_row_selected_widget.dart';
-import 'model/product.dart';
-import 'model/products_repository.dart';
+import '../model/product.dart';
+import '../model/products_repository.dart';
 
 class HomeAppBoard extends StatefulWidget {
   const HomeAppBoard({

@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/layout/product/product_row_base_widget.dart';
-import 'package:flutter_app/layout/product/product_row_select_fav_widget.dart';
-import 'package:flutter_app/model/product.dart';
+import 'package:flutter_app/ui/layout/product/product_row_base_widget.dart';
+import 'package:flutter_app/ui/layout/product/product_row_select_fav_widget.dart';
+import 'package:flutter_app/ui/model/product.dart';
 
 import 'product_row_selected_widget.dart';
 
@@ -74,7 +74,7 @@ class _ProductListLayoutState extends State<ProductListLayout> {
       return ListView.builder (
         // physics: NeverScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
-          // TODO will fix bottom padding of ListView in case we don't have  
+          // TODO will fix bottom padding of ListView in case we don't have
           // floating button on screen
           padding: const EdgeInsets.only(left: 4, top: 4, right: 4, bottom: 64),
           itemCount: widget.productList.length,

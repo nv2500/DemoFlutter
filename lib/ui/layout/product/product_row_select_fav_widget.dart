@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data/colors.dart';
+import 'package:flutter_app/ui/data/colors.dart';
 
-import '../../main.dart';
+import '../../../main.dart';
 import 'product_row_base_widget.dart';
 
 // ignore: must_be_immutable

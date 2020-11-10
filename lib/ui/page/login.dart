@@ -3,9 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data/colors.dart';
+import 'package:flutter_app/ui/data/colors.dart';
 
-import '../main.dart';
+import '../../main.dart';
 
 
 class LoginPage extends StatefulWidget {

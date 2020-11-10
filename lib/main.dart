@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/model/product.dart';
-import 'package:flutter_app/page/login.dart';
+import 'package:flutter_app/ui/model/product.dart';
+import 'package:flutter_app/ui/page/login.dart';
+import 'package:flutter_app/ui/data/colors.dart';
+import 'package:flutter_app/ui/layout/letter_spacing.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'app.dart';
-import 'data/colors.dart';
-import 'layout/letter_spacing.dart';
+import 'ui/page/home_app_board.dart';
 
 
 void main() {

@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/model/product.dart';
-import 'package:flutter_app/page/login.dart';
+import 'package:flutter_app/ui/model/product.dart';
+import 'package:flutter_app/ui/page/login.dart';
 import 'package:meta/meta.dart';
 
 const double _kFlingVelocity = 2.0;
