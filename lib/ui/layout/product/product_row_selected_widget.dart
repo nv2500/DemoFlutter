@@ -20,16 +20,20 @@ class ProductRowSelectedWidget extends ProductRowBaseWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      // elevation: 4.0,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+    final textTheme = Theme.of(context).textTheme;
+    // return Card(
+    //   // elevation: 4.0,
+    //   child:
+    Widget newrow =
+      Padding(
+        padding: EdgeInsets.all(12.0),
         child: //Column(
           //children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CircleAvatar(
+                  radius: 24,
                   backgroundColor: DemoColors.billColor(selectedProduct.id),
                   child: Text(
                     selectedProduct.name.characters.first,
@@ -42,12 +46,32 @@ class ProductRowSelectedWidget extends ProductRowBaseWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //Text('Quantity: '+ selectedProduct.category.toString().split('.').last),
-                        Text('Quantity: ${selectedProduct.quantity}'),
-                        Text(
-                          selectedProduct.name,
-                          style: Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.black),
+
+                        Row(
+                          children: [
+                            Text('Quantity: ${selectedProduct.quantity} x',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: textTheme.subtitle1.copyWith(
+                                fontSize: 16,
+                                color: DemoColors.gray,
+                              ),
+                            ),
+                            Expanded(child: SizedBox(),),
+                            Text('\$'+ selectedProduct.price.toString(),
+                              style: textTheme.subtitle1.copyWith(
+                                fontSize: 16,
+                                color: DemoColors.gray,
+                              ),
+                            )
+                          ],
                         ),
+                        Text(selectedProduct.name,
+                          style: textTheme.bodyText2.copyWith(
+                            // fontSize: 20,
+                            color: DemoColors.gray,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -62,7 +86,13 @@ class ProductRowSelectedWidget extends ProductRowBaseWidget {
                 ),
                 if (selectedProduct.isFeatured) Icon(Icons.star_border),
                 if(selectedProduct.isFeatured) Text('Showing') else Text('Not showing')*/
-                Text('x \$${selectedProduct.price}')
+                // Text('x \$${selectedProduct.price}'),
+                // Text('\$'+ selectedProduct.price.toString(),
+                //   style: textTheme.subtitle1.copyWith(
+                //     fontSize: 16,
+                //     color: DemoColors.gray,
+                //   ),
+                // )
               ],
             ),
             // Padding(
@@ -76,8 +106,22 @@ class ProductRowSelectedWidget extends ProductRowBaseWidget {
             // ),
           // ],
         // ),
-      ),
+      // ),
     );
+
+    Widget x = Column(
+      children: [
+        newrow,
+        const Divider(
+          height: 2,
+          indent: 16,
+          endIndent: 16,
+          color: DemoColors.dividerColor,
+        ),
+      ],
+    );
+
+    return x;
   }
 
 }

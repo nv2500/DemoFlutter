@@ -1,27 +1,16 @@
-// Copyright 2018-present the Flutter authors. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+import 'package:flutter_app/business_logic/models/product.dart';
+import 'package:flutter_app/services/product/product_service_abs.dart';
 
-import '../../business_logic/models/product.dart';
+class ProductServiceFake extends ProductService {
 
-class ProductsRepository {
-  static List<Product> loadProducts(Category category) {
+  @override
+  Future<List<Product>> getProducts(Category category) async {
     List<Product> allProducts = <Product> [
       Product(
         category: Category.accessories,
         id: 0,
         isFeatured: true,
-        name: 'Vagabond sack',// 1 2 3 4 5 6 7 8 9 0',
+        name: 'Vagabond sack',
         price: 120,
       ),
       Product(
@@ -294,4 +283,11 @@ class ProductsRepository {
       }).toList();
     }
   }
+
+  @override
+  Future<List<Product>> getSavedProducts() {
+    // TODO: implement getSavedProducts
+    throw UnimplementedError();
+  }
+
 }

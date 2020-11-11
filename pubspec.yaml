@@ -46,6 +46,10 @@ dependencies:
   # contains a few thousand of the most-used English words, plus some utility functions.
   english_words: ^3.1.5
 
+  get_it: ^3.0.1
+
+  provider: ^4.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

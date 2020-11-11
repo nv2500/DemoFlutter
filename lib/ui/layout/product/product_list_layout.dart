@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/layout/product/product_row_base_widget.dart';
 import 'package:flutter_app/ui/layout/product/product_row_select_fav_widget.dart';
-import 'package:flutter_app/ui/model/product.dart';
+import 'package:flutter_app/business_logic/models/product.dart';
 
 import 'product_row_selected_widget.dart';
 
@@ -50,7 +50,7 @@ class _ProductListLayoutState extends State<ProductListLayout> {
     } else {
       print('>>> GOOD LUCK NEXT TIME!!!!! ');
       // throw UnimplementedError();
-      throw StateError('Invalid generic type of ProductRowBaseWidget');
+      throw ArgumentError('Invalid generic type of ProductRowBaseWidget');
     }
   }
 

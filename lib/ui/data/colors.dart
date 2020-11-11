@@ -32,6 +32,7 @@ class DemoColors {
   // static const Color inputBackground = Colors.blue;
   static const Color cardBackground = Color(0x03FEFEFE);
   static const Color buttonColor = Color(0xFF09AF79);
+  static const Color buttonColor87 = Color(0xDD09AF79);
   static const Color focusColor = Color(0xCCFFFFFF);
   static const Color dividerColor = Color(0xAA282828);
   static const Color textColor = Color(0xDD000000);

@@ -8,14 +8,14 @@ import 'package:flutter_app/ui/data/colors.dart';
 import '../../main.dart';
 
 
-class LoginPage extends StatefulWidget {
-  const LoginPage();
+class LoginScreen extends StatefulWidget {
+  const LoginScreen();
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -207,7 +207,7 @@ class _FilledButton extends StatelessWidget {
         primary: Colors.black,
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(8),
         ),
       ),
       onPressed: onTap,

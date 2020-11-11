@@ -1,13 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/ui/model/product.dart';
-import 'package:flutter_app/ui/page/login.dart';
+import 'package:flutter_app/business_logic/models/product.dart';
+import 'package:flutter_app/ui/page/login_screen.dart';
 import 'package:flutter_app/ui/data/colors.dart';
 import 'package:flutter_app/ui/layout/letter_spacing.dart';
+import 'package:flutter_app/ui/page/testing.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'ui/page/home_app_board.dart';
+import 'ui/page/home_board_screen.dart';
 
 
 void main() {
@@ -31,10 +32,10 @@ class MyDemoApp extends StatelessWidget {
         // title: 'Welcome to Flutter',
         debugShowCheckedModeBanner: false,
         theme: _buildDemoTheme(),
-        home: const LoginPage(),
+        home: const LoginScreen(),
         routes: <String, WidgetBuilder>{
-          homeRoute: (BuildContext context) => const HomeAppBoard(),
-          loginRoute: (BuildContext context) => const LoginPage(),
+          homeRoute: (BuildContext context) => const HomeBoardScreen(),
+          loginRoute: (BuildContext context) => const LoginScreen(),
         },
         // initialRoute: loginRoute,
       );

@@ -24,17 +24,21 @@ class ProductRowSelectFavWidget extends ProductRowBaseWidget {
 
     print('>>> quantity=${selectedProduct.quantity}');
 
-    Widget newrow = Card (
-      child: Padding (
-        padding: const EdgeInsets.all(16.0),
+    final textTheme = Theme.of(context).textTheme;
+
+    // Widget newrow = Card (
+    //   child: Padding (
+    Widget newrow = Padding (
+        padding: EdgeInsets.all(12.0),
         child: Row(
           children: [
             // product image ---------------------------------------------------
             CircleAvatar(
+              radius: 24,
               backgroundColor: DemoColors.billColor(selectedProduct.id),
               child: Text(
                 selectedProduct.name.characters.first,
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: DemoColors.textColor),
               ),
             ),
 
@@ -45,8 +49,20 @@ class ProductRowSelectFavWidget extends ProductRowBaseWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(selectedProduct.name),
-                    Text(''+ selectedProduct.price.toString())
+                    Text(selectedProduct.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.bodyText1.copyWith(
+                        fontSize: 16,
+                        color: DemoColors.gray,
+                      ),
+                    ),
+                    Text('\$'+ selectedProduct.price.toString(),
+                      style: textTheme.bodyText2.copyWith(
+                        // fontSize: 20,
+                        color: DemoColors.gray,
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -59,13 +75,13 @@ class ProductRowSelectFavWidget extends ProductRowBaseWidget {
               //     width: 90,
               //     height: 40,
               //     child:
-                OutlineButton.icon(
+                /*OutlineButton.icon(
                   // highlightedBorderColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-                  borderSide: BorderSide(color: DemoColors.buttonColor),
+                  // borderSide: BorderSide(color: DemoColors.buttonColor),
                   icon: const Icon(Icons.add, size: 16,),
                   //padding: const EdgeInsets.all(3.0),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   label: const Text('Add'),
                   // child: Text('Add to cart'),
@@ -86,6 +102,26 @@ class ProductRowSelectFavWidget extends ProductRowBaseWidget {
                     tapCallback(selectedProduct.id);
                   },
               // )
+            )*/
+            RaisedButton.icon(
+              color: DemoColors.buttonColor,
+              icon: const Icon(Icons.add, size: 16,),
+              label: Text('Add',
+                style: textTheme.bodyText2.copyWith(
+                  // fontSize: 20,
+                  color: DemoColors.textColor,
+                ),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              onPressed: () {
+                // update saving state of selected product
+                selectedProduct.quantity += 1;
+                MyDemoApp.sSavedProductList.add(selectedProduct);
+                // TODO call this to force invalidate UI
+                tapCallback(selectedProduct.id);
+              },
             )
             else Row( // (-) qty. (+)
               children: [
@@ -100,7 +136,12 @@ class ProductRowSelectFavWidget extends ProductRowBaseWidget {
                 ),
                 //Expanded(
                 //  child:
-                  Text('${selectedProduct.quantity}'),
+                  Text('${selectedProduct.quantity}',
+                    style: textTheme.bodyText1.copyWith(
+                      fontSize: 20,
+                      color: DemoColors.gray,
+                    ),
+                  ),
                 //),
                 IconButton(
                   icon: Icon(Icons.add_circle_outline_outlined, color: DemoColors.buttonColor,),
@@ -113,31 +154,24 @@ class ProductRowSelectFavWidget extends ProductRowBaseWidget {
             )
           ],
         ),
-      )
+      // )
     );
 
-    // Widget row = Card(
-    //     child: ListTile(
-    //       title: Text(
-    //         selectedProduct.nameTesting,
-    //         // style: biggerFont,
-    //       ),
-    //       trailing: Icon(
-    //         alreadySaved ? Icons.favorite : Icons.favorite_border,
-    //         color: alreadySaved ? Colors.red : null,
-    //       ),
-    //       onTap: () {
-    //         // update saving state of selected product
-    //         if (alreadySaved) {
-    //           MyDemoApp.sSavedProductList.remove(selectedProduct);
-    //         } else {
-    //           MyDemoApp.sSavedProductList.add(selectedProduct);
-    //         }
-    //         // TODO call this to force invalidate UI
-    //         tapCallback(selectedProduct.id);
-    //       },
-    //     ));
-    return newrow;
+    Widget x = Column(
+      children: [
+        newrow,
+        const Divider(
+          height: 2,
+          indent: 16,
+          endIndent: 16,
+          color: DemoColors.dividerColor,
+        ),
+      ],
+    );
+
+    // return newrow;
+
+    return x;
   }
 
 }

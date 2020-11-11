@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/ui/data/app_options.dart';
 
-class LoginPage extends StatelessWidget {
+class TestingScreen1 extends StatelessWidget {
+  const TestingScreen1();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: "DEMO 123",
-        home: MyHomePage(
+        home: const TestingScreen2(
           title: "hello",
         ));
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class TestingScreen2 extends StatefulWidget {
+  const TestingScreen2({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -26,10 +29,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _TestingScreen2State createState() => _TestingScreen2State();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _TestingScreen2State extends State<TestingScreen2> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -43,55 +46,37 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Widget _buildMainBody(BuildContext context) {
+    final deviceSize = MediaQuery.of(context).size;
+    // Use sort keys to make sure the cart button is always on the top.
+    // This way, a11y users do not have to scroll through the entire list to
+    // find the cart, and can easily get to the cart from anywhere on the page
+    return Stack(
+        children: [
+          Container(
+              width: deviceSize.width,
+              height: 64,
+              color: Colors.blueAccent),
+          Text("data", style: TextStyle(color: Colors.white),),
+        ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
+    return  Scaffold(
+          appBar: AppBar(
+            // Here we take the value from the MyHomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
+            title: Text(widget.title),
+          ),
+          body: _buildMainBody(context),
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: _incrementCounter,
+          //   tooltip: 'Increment',
+          //   child: Icon(Icons.add),
+          // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ui/model/product.dart';
-import 'package:flutter_app/ui/page/login.dart';
+import 'package:flutter_app/business_logic/models/product.dart';
+import 'package:flutter_app/ui/page/login_screen.dart';
 import 'package:meta/meta.dart';
 
 const double _kFlingVelocity = 2.0;
@@ -265,7 +265,7 @@ class _BackdropState extends State<Backdrop>
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+              MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
             );
           },
         ),
@@ -277,7 +277,7 @@ class _BackdropState extends State<Backdrop>
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+              MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
             );
           },
         ),
