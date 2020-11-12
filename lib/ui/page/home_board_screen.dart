@@ -7,6 +7,7 @@ import 'package:flutter_app/main.dart';
 import 'package:flutter_app/ui/data/colors.dart';
 import 'package:flutter_app/ui/layout/product/product_list_layout.dart';
 import 'package:flutter_app/ui/layout/product/product_row_choosing_widget.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class HomeBoardScreen extends StatefulWidget {
@@ -91,57 +92,53 @@ class _HomeBoardScreenState extends State<HomeBoardScreen> {
     );
   }
 
-  Widget _bottomCartWidget(ProductsViewModel model) => Row(
-    children: [
-      Expanded(child: SizedBox(),),// empty space
-      Align( // shopping cart region
-        alignment: Alignment.bottomRight,
-        child: GestureDetector(
-          onTap: ()=> {
-            print('Tapped!'),
-            _pushCheckoutScreen()
-          },
-          child: Material(
-            //animationDuration: const Duration(milliseconds: 10),
+  Widget _bottomCartWidget(ProductsViewModel model) {
+    final formatter = NumberFormat.simpleCurrency(
+      decimalDigits: 2,
+      locale: Localizations.localeOf(context).toString(),
+    );
+    return Row(
+      children: [
+        Expanded(child: SizedBox(),),// empty space
+        Align( // shopping cart region
+          alignment: Alignment.bottomRight,
+          child: GestureDetector(
+            onTap: ()=> {
+              print('Tapped!'),
+              _pushCheckoutScreen()
+            },
+            child: Material(
+              //animationDuration: const Duration(milliseconds: 10),
 
-            shape: BeveledRectangleBorder(
-              borderRadius: BorderRadiusDirectional.only(
-                topStart: Radius.circular(12),
-                // bottomStart: Radius.circular(0),
+              shape: BeveledRectangleBorder(
+                borderRadius: BorderRadiusDirectional.only(
+                  topStart: Radius.circular(12),
+                  // bottomStart: Radius.circular(0),
+                ),
               ),
-            ),
-            // shape: RoundedRectangleBorder(
-            //   borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
-            // ),
+              // shape: RoundedRectangleBorder(
+              //   borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
+              // ),
 
-            elevation: 4,
-            // shadowColor: Colors.red,
-            // borderOnForeground: true,
-            color: DemoColors.billColor(3),
-            child: Padding(padding: const EdgeInsets.only(top: 12, left: 18, bottom: 10, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Icon(Icons.shopping_basket, color: DemoColors.textColor,),
-                  SizedBox(width: 8,),
-                  Text(_calculate(model), style: Theme.of(context).textTheme.subtitle2.copyWith(color: DemoColors.textColor)),
-                ],
+              elevation: 4,
+              // shadowColor: Colors.red,
+              // borderOnForeground: true,
+              color: DemoColors.billColor(3),
+              child: Padding(padding: const EdgeInsets.only(top: 12, left: 18, bottom: 10, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(Icons.shopping_basket, color: DemoColors.textColor,),
+                    SizedBox(width: 8,),
+                    Text(formatter.format(model.totalCost), style: Theme.of(context).textTheme.subtitle2.copyWith(color: DemoColors.textColor)),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      )
-    ],
-  );
-
-  String _calculate(ProductsViewModel viewModel) {
-    double totalPrice = 0;
-    for (ProductViewPresentation product in viewModel?.productList) {
-      if (product.quantity > 0) {
-        totalPrice += product.quantity * product.price;
-      }
-    }
-    return '\$$totalPrice';
+        )
+      ],
+    );
   }
 
   @override

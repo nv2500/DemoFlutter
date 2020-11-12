@@ -12,7 +12,7 @@ class ProductsViewModel extends ChangeNotifier {
   List<ProductViewPresentation> _productListVP = [];
 
   List<ProductViewPresentation> get productList => _productListVP;
-  List<ProductViewPresentation> get selectedProductList => _selectedProductListVP;
+  List<ProductViewPresentation> get productsInCart => _productsInCart;
 
   void loadData() async {
     _realBusinessProductList = await _productService.getProducts(ProductCategory.all);
@@ -26,15 +26,15 @@ class ProductsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<ProductViewPresentation> _selectedProductListVP = [];
+  List<ProductViewPresentation> _productsInCart = [];
   void loadSelectedProducts() async {
-    _selectedProductListVP.clear();
+    _productsInCart.clear();
     for (ProductViewPresentation product in _productListVP) {
       if (product.quantity > 0) {
-        _selectedProductListVP.add(product);
+        _productsInCart.add(product);
       }
     }
-    print('[VM] update selected product, list size=${_selectedProductListVP?.length}');
+    print('[VM] update selected product, list size=${_productsInCart?.length}');
     // notifyListeners();
   }
 
@@ -42,7 +42,7 @@ class ProductsViewModel extends ChangeNotifier {
     // we should reload selected product in case quantity decrease to 0
 
     bool needReloadSelectedProduct = false;
-    for (ProductViewPresentation product in _selectedProductListVP) {
+    for (ProductViewPresentation product in _productsInCart) {
       if (product.quantity == 0) {
         needReloadSelectedProduct = true;
       }
@@ -53,6 +53,27 @@ class ProductsViewModel extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  double _salesTaxRate = 0.06;
+  double _shippingCostPerItem = 7;
+  double get subtotalCost {
+    double cost = 0;
+    _productsInCart?.forEach( (item) => cost += item.quantity * item.price);
+    return cost;
+  }
+
+  /// Total shipping cost for the items in the cart.
+  double get shippingCost {
+    double cost = 0;
+    _productsInCart.forEach( (item) => cost += _shippingCostPerItem);
+    return cost;
+  }
+
+  /// Sales tax for the items in the cart
+  double get tax => subtotalCost * _salesTaxRate;
+
+  /// Total cost to order everything in the cart.
+  double get totalCost => subtotalCost + tax + shippingCost;
 
 }
 

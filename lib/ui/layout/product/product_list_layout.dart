@@ -16,6 +16,7 @@ class ProductListLayout<T> extends StatefulWidget {
     this.viewModel,
     this.rowGenericType,
     this.productList,
+    this.footerWidget,
   }) :  assert(rowGenericType != null),
         assert(productList != null),
         assert(viewModel != null);
@@ -23,14 +24,18 @@ class ProductListLayout<T> extends StatefulWidget {
   final List<ProductViewPresentation> productList;
   final ProductsViewModel viewModel;
 
+  final Widget footerWidget;
+
   @override
   State<StatefulWidget> createState() => _ProductListLayoutState();
+
 }
 
 class _ProductListLayoutState extends State<ProductListLayout> {
 
+  bool hasFooter = false;
+
   Widget buildRow(ProductViewPresentation product, int index) {
-    //widget.viewModel.updateQuantity(1);
     final ProductRowBaseWidget genType = widget.rowGenericType() as ProductRowBaseWidget;
     if (genType is ProductRowChoosingWidget) {
       // cast back to original data type
@@ -39,13 +44,6 @@ class _ProductListLayoutState extends State<ProductListLayout> {
         viewModel: widget.viewModel,
         selectedProduct: product,
         rowIndex: index,
-        // tapCallback: (int tappedIndex) {
-        //   // ?. equivalent with (myObject != null) ? myObject.someProperty : null
-        //   print('>>> tap at row $index + ??? tappedIndex=$tappedIndex');
-        //   setState(() {
-        //     // TODO leave this empty call to force invalidate UI for item changed purpose
-        //   });
-        // },
       );
     } else if (genType is ProductRowCheckoutWidget) {
       return ProductRowCheckoutWidget(
@@ -65,6 +63,9 @@ class _ProductListLayoutState extends State<ProductListLayout> {
     super.initState();
 
     print('>>> ProductListLayout->initState was called!!!');
+    if (widget.footerWidget != null) {
+      hasFooter = true;
+    }
   }
 
   @override
@@ -77,18 +78,22 @@ class _ProductListLayoutState extends State<ProductListLayout> {
 
   @override
   Widget build(BuildContext context) {
+    //print('has footer: $hasFooter, ${widget.footerWidget == null}');
       return ListView.builder (
         // physics: NeverScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
           // TODO will fix bottom padding of ListView in case we don't have
           // floating button on screen
           padding: const EdgeInsets.only(left: 4, top: 4, right: 4, bottom: 64),
-          itemCount: widget.productList.length,
+          itemCount: hasFooter ? (widget.productList.length + 1) : widget.productList.length,
 
           itemBuilder: (BuildContext _context, int index) {
 
             // Product product = productList.elementAt(index);
             // debugPrint('>>>build row at: $index, name: ${product.name}');
+            if (index >= widget.productList.length && hasFooter) {
+              return widget.footerWidget;
+            }
 
             return buildRow(widget.productList.elementAt(index), index);
           }
