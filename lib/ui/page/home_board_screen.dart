@@ -83,6 +83,7 @@ class _HomeBoardScreenState extends State<HomeBoardScreen> {
               viewModel: model,
               rowGenericType: ()=> ProductRowChoosingWidget(),
               productList: model.productList,
+              footerWidget: const SizedBox(height: 64,),
             ),
             //child,
             _bottomCartWidget(model),// << shopping cart icon for going to checkout screen

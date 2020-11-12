@@ -182,6 +182,8 @@ class ProductRowChoosingWidget extends ProductRowBaseWidget {
         // update saving state of selected product
         selectedProductVP.quantity += 1;
         // TODO call this to force invalidate UI
+
+        viewModel.loadSelectedProducts();
         viewModel.updateQuantity();
       },
     );

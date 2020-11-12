@@ -34,7 +34,7 @@ class DemoColors {
   static const Color buttonColor = Color(0xFF09AF79);
   static const Color buttonColor87 = Color(0xDD09AF79);
   static const Color focusColor = Color(0xCCFFFFFF);
-  static const Color dividerColor = Color(0xAA282828);
+  static const Color dividerColor = Color(0x66000000);
   static const Color textColor = Color(0xDD000000);
 
   /// Convenience method to get a single account color with position i.

@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/data/colors.dart';
+import 'package:flutter_app/ui/layout/image_placeholder.dart';
 
 import '../../main.dart';
 
@@ -40,6 +41,30 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
+class _SmallLogo extends StatelessWidget {
+  const _SmallLogo({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 64),
+      child: SizedBox(
+        height: 160,
+        // child: ExcludeSemantics(
+        //   child: FadeInImagePlaceholder(
+        //     image: AssetImage('logo.png', package: 'rally_assets'),
+        //     child: Icon(Icons.shopping_bag_outlined ),
+        //     placeholder: SizedBox.shrink(),
+        //   ),
+        // ),
+        child: Icon(Icons.shopping_bag_outlined, size: 160, color: DemoColors.buttonColor,),
+      ),
+    );
+  }
+}
+
 class _MainView extends StatelessWidget {
   const _MainView({
     Key key,
@@ -51,7 +76,7 @@ class _MainView extends StatelessWidget {
   final TextEditingController passwordController;
 
   void _doLogin(BuildContext context) {
-    // Navigator.of(context).pop();// <= TODO we no longer need login screen when moving to main screen
+    Navigator.of(context).pop();// <= TODO we no longer need login screen when moving to main screen
     // Navigator.of(context).pushReplacementNamed(MyDemoApp.homeRoute);
     // pushNamedAndRemoveUntil <= perfect for payment flow!
     Navigator.of(context).pushNamed(MyDemoApp.homeRoute);
@@ -62,7 +87,8 @@ class _MainView extends StatelessWidget {
     List<Widget> listViewChildren;
 
       listViewChildren = [
-        const SizedBox(height: 180),
+        // const SizedBox(height: 180),
+        const _SmallLogo(),
         _UsernameInput(
           usernameController: usernameController,
         ),

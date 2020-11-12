@@ -131,7 +131,7 @@ class ProductRowCheckoutWidget extends ProductRowBaseWidget {
       children: [
         newrow,
         const Divider(
-          height: 2,
+          height: 1,
           indent: 16,
           endIndent: 16,
           color: DemoColors.dividerColor,

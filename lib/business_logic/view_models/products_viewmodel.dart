@@ -17,6 +17,7 @@ class ProductsViewModel extends ChangeNotifier {
   void loadData() async {
     _realBusinessProductList = await _productService.getProducts(ProductCategory.all);
     _productListVP.clear();
+    _productsInCart.clear();
 
     for (Product product in _realBusinessProductList) {
       ProductViewPresentation productVP = ProductViewPresentation(product.name, product.id, product.price);
