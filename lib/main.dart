@@ -1,19 +1,33 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/business_logic/models/product.dart';
+import 'package:flutter_app/services/service_locator.dart';
+import 'package:flutter_app/ui/page/checkout_screen.dart';
 import 'package:flutter_app/ui/page/login_screen.dart';
 import 'package:flutter_app/ui/data/colors.dart';
 import 'package:flutter_app/ui/layout/letter_spacing.dart';
-import 'package:flutter_app/ui/page/testing.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import 'business_logic/view_models/products_viewmodel.dart';
 import 'ui/page/home_board_screen.dart';
 
 
 void main() {
+  setupServiceLocator();
   GoogleFonts.config.allowRuntimeFetching = false;
-  runApp(const MyDemoApp());
+
+  runApp(// https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple
+    MultiProvider(
+      providers: [
+        // TODO initialize
+        ChangeNotifierProvider(create: (context) => ProductsViewModel()),
+        //Provider(create: (context) => SomeOtherClass()),
+      ],
+      child: const MyDemoApp(),
+    ),
+  );
+  // runApp(const MyDemoApp());
 }
 
 class MyDemoApp extends StatelessWidget {
@@ -22,8 +36,9 @@ class MyDemoApp extends StatelessWidget {
 
   static const String loginRoute = '/demo/login';
   static const String homeRoute = '/demo';
+  static const String checkoutRoute = '/demo/checkout';
 
-  static List<Product> sSavedProductList = List<Product>();
+  // static List<Product> sSavedProductList = List<Product>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +51,7 @@ class MyDemoApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           homeRoute: (BuildContext context) => const HomeBoardScreen(),
           loginRoute: (BuildContext context) => const LoginScreen(),
+          checkoutRoute: (BuildContext context) => const CheckoutScreen(),
         },
         // initialRoute: loginRoute,
       );

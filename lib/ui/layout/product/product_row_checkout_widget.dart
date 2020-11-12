@@ -2,20 +2,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/data/colors.dart';
 
-import '../../../main.dart';
 import 'product_row_base_widget.dart';
 
 // ignore: must_be_immutable
-class ProductRowSelectedWidget extends ProductRowBaseWidget {
+class ProductRowCheckoutWidget extends ProductRowBaseWidget {
 
-  const ProductRowSelectedWidget({
+  const ProductRowCheckoutWidget({
+    viewModel,
     selectedProduct,
     rowIndex,
     // tapCallback,
   })  : super(
-          selectedProduct: selectedProduct,
+          viewModel: viewModel,
+          selectedProductVP: selectedProduct,
           rowIndex: rowIndex,
-          tapCallback: null,
+          // tapCallback: null,
         );
 
   @override
@@ -32,12 +33,29 @@ class ProductRowSelectedWidget extends ProductRowBaseWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                IconButton(
+                  icon: Icon(Icons.remove_circle_outline_outlined, color: DemoColors.buttonColor,),
+                  onPressed: () {
+                    if (selectedProductVP.quantity > 0)
+                      selectedProductVP.quantity -= 1;
+                    // if (selectedProduct.quantity == 0)
+                    // MyDemoApp.sSavedProductList.remove(selectedProduct);
+                    // tapCallback(selectedProduct.id);
+
+                    // viewModel.selectedProductList.elementAt(rowIndex).quantity = selectedProductVP.quantity;
+                    viewModel.updateQuantity();
+
+                  },
+                ),
                 CircleAvatar(
                   radius: 24,
-                  backgroundColor: DemoColors.billColor(selectedProduct.id),
+                  backgroundColor: DemoColors.billColor(selectedProductVP.id),
                   child: Text(
-                    selectedProduct.name.characters.first,
-                    style: TextStyle(color: Colors.black),
+                    selectedProductVP.name.characters.first,
+                    style: textTheme.headline6.copyWith(
+                      // fontSize: 16,
+                      color: DemoColors.textColor,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -49,7 +67,7 @@ class ProductRowSelectedWidget extends ProductRowBaseWidget {
 
                         Row(
                           children: [
-                            Text('Quantity: ${selectedProduct.quantity} x',
+                            Text('Quantity: ${selectedProductVP.quantity} x',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: textTheme.subtitle1.copyWith(
@@ -58,7 +76,7 @@ class ProductRowSelectedWidget extends ProductRowBaseWidget {
                               ),
                             ),
                             Expanded(child: SizedBox(),),
-                            Text('\$'+ selectedProduct.price.toString(),
+                            Text('\$'+ selectedProductVP.price.toString(),
                               style: textTheme.subtitle1.copyWith(
                                 fontSize: 16,
                                 color: DemoColors.gray,
@@ -66,7 +84,7 @@ class ProductRowSelectedWidget extends ProductRowBaseWidget {
                             )
                           ],
                         ),
-                        Text(selectedProduct.name,
+                        Text(selectedProductVP.name,
                           style: textTheme.bodyText2.copyWith(
                             // fontSize: 20,
                             color: DemoColors.gray,

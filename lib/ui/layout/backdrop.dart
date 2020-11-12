@@ -150,7 +150,7 @@ class _BackdropTitle extends AnimatedWidget {
 /// can make a selection. The user can also configure the titles for when the
 /// front or back layer is showing.
 class Backdrop extends StatefulWidget {
-  final Category currentCategory;
+  final ProductCategory currentCategory;
   final Widget frontLayer;
   final Widget backLayer;
   final Widget frontTitle;

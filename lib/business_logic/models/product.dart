@@ -14,7 +14,7 @@
 
 import 'package:flutter/foundation.dart';
 
-enum Category { all, accessories, clothing, home, }
+enum ProductCategory { all, accessories, clothing, home, }
 
 class Product {
   Product({
@@ -30,11 +30,11 @@ class Product {
         assert(name != null),
         assert(price != null);
 
-  Category category;
-  int id;
-  bool isFeatured;
-  String name;
-  double price;
+  final ProductCategory category;
+  final int id;
+  final bool isFeatured;
+  final String name;
+  final double price;
 
   int quantity = 0;
 

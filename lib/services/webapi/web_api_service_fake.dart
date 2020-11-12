@@ -1,16 +1,22 @@
-import 'package:flutter_app/business_logic/models/product.dart';
-import 'package:flutter_app/services/product/product_service_abs.dart';
 
-class ProductServiceFake extends ProductService {
+import 'package:flutter_app/business_logic/models/product.dart';
+import 'package:flutter_app/services/webapi/web_api_abs.dart';
+
+class WebApiFake implements WebApi {
 
   @override
-  Future<List<Product>> getProducts(ProductCategory category) async {
-    List<Product> allProducts = <Product> [
+  Future<List<Product>> fetchProducts() async {
+    print('[WebApiFake] fetching fake Product data for testing...');
+    return loadProducts();
+  }
+
+  List<Product> loadProducts() {
+    return <Product> [
       Product(
         category: ProductCategory.accessories,
         id: 0,
         isFeatured: true,
-        name: 'Vagabond sack',
+        name: 'Vagabond sack',// 1 2 3 4 5 6 7 8 9 0',
         price: 120,
       ),
       Product(
@@ -274,19 +280,6 @@ class ProductServiceFake extends ProductService {
       ),
     ];
 
-    // filter product list base on the input of category
-    if (category == ProductCategory.all) {
-      return allProducts;
-    } else {
-      return allProducts.where((Product p) {
-        return p.category == category;
-      }).toList();
-    }
   }
-
-  // @override
-  // Future<List<Product>> getSavedProducts() {
-  //   throw UnimplementedError();
-  // }
 
 }

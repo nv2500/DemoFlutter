@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/business_logic/view_models/products_viewmodel.dart';
 import 'package:flutter_app/ui/layout/product/product_row_base_widget.dart';
-import 'package:flutter_app/ui/layout/product/product_row_select_fav_widget.dart';
-import 'package:flutter_app/business_logic/models/product.dart';
+import 'package:flutter_app/ui/layout/product/product_row_choosing_widget.dart';
 
-import 'product_row_selected_widget.dart';
+import 'product_row_checkout_widget.dart';
 
 typedef S GenericTypeCreator<S>();
 
@@ -13,12 +13,15 @@ class ProductListLayout<T> extends StatefulWidget {
   final GenericTypeCreator<T> rowGenericType;
 
   const ProductListLayout({
-    @required this.rowGenericType,
-    @required this.productList,
+    this.viewModel,
+    this.rowGenericType,
+    this.productList,
   }) :  assert(rowGenericType != null),
-        assert(productList != null);
+        assert(productList != null),
+        assert(viewModel != null);
 
-  final List<Product> productList;
+  final List<ProductViewPresentation> productList;
+  final ProductsViewModel viewModel;
 
   @override
   State<StatefulWidget> createState() => _ProductListLayoutState();
@@ -26,24 +29,27 @@ class ProductListLayout<T> extends StatefulWidget {
 
 class _ProductListLayoutState extends State<ProductListLayout> {
 
-  Widget buildRow(Product product, int index) {
+  Widget buildRow(ProductViewPresentation product, int index) {
+    //widget.viewModel.updateQuantity(1);
     final ProductRowBaseWidget genType = widget.rowGenericType() as ProductRowBaseWidget;
-    if (genType is ProductRowSelectFavWidget) {
+    if (genType is ProductRowChoosingWidget) {
       // cast back to original data type
       //print('>>> BINGO!!!!! ');
-      return ProductRowSelectFavWidget(
+      return ProductRowChoosingWidget(
+        viewModel: widget.viewModel,
         selectedProduct: product,
         rowIndex: index,
-        tapCallback: (int tappedIndex) {
-          // ?. equivalent with (myObject != null) ? myObject.someProperty : null
-          print('>>> tap at row $index + ??? tappedIndex=$tappedIndex');
-          setState(() {
-            // TODO leave this empty call to force invalidate UI for item changed purpose
-          });
-        },
+        // tapCallback: (int tappedIndex) {
+        //   // ?. equivalent with (myObject != null) ? myObject.someProperty : null
+        //   print('>>> tap at row $index + ??? tappedIndex=$tappedIndex');
+        //   setState(() {
+        //     // TODO leave this empty call to force invalidate UI for item changed purpose
+        //   });
+        // },
       );
-    } else if (genType is ProductRowSelectedWidget) {
-      return ProductRowSelectedWidget(
+    } else if (genType is ProductRowCheckoutWidget) {
+      return ProductRowCheckoutWidget(
+        viewModel: widget.viewModel,
         selectedProduct: product,
         rowIndex: index,
       );
